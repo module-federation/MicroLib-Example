@@ -204,6 +204,4 @@ function makeModel(spec) {
   };
 }
 
-const models = Object.values(modelSpecs).map(spec => makeModel(spec));
-
-export { models };
+export const models = Object.values(modelSpecs).map(spec => makeModel(spec));

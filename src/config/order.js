@@ -145,6 +145,22 @@ export const Order = {
       keys: "shippingAddress",
       producesEvent: "addressValidated",
       disabled: true,
+      timeout: 2000,
+      maxRetry: 2,
+      circuitBreaker: {
+        default: {
+          errorRate: 20,
+          callVolume: 30,
+          intervalMs: 10000,
+          retryDelay: 30000,
+        },
+        portRetryFailed_order: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 60000,
+          retryDelay: 30000,
+        },
+      },
     },
     authorizePayment: {
       service: "Payment",
@@ -153,6 +169,22 @@ export const Order = {
       consumesEvent: "startWorkflow",
       producesEvent: "paymentAuthorized",
       undo: cancelPayment,
+      timeout: 2000,
+      maxRetry: 2,
+      circuitBreaker: {
+        default: {
+          errorRate: 20,
+          callVolume: 10,
+          intervalMs: 100000,
+          retryDelay: 30000,
+        },
+        portRetryFailed_order: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 60000,
+          retryDelay: 30000,
+        },
+      },
     },
     pickOrder: {
       service: "Inventory",
@@ -161,6 +193,16 @@ export const Order = {
       consumesEvent: "pickOrder",
       producesEvent: "orderPicked",
       undo: returnInventory,
+      timeout: 2000,
+      maxRetry: 2,
+      circuitBreaker: {
+        default: {
+          errorRate: 20,
+          callVolume: 10,
+          intervalMs: 100000,
+          retryDelay: 30000,
+        },
+      },
     },
     shipOrder: {
       service: "Shipping",
@@ -169,6 +211,16 @@ export const Order = {
       consumesEvent: "orderPicked",
       producesEvent: "orderShipped",
       undo: returnShipment,
+      timeout: 2000,
+      maxRetry: 2,
+      circuitBreaker: {
+        default: {
+          errorRate: 20,
+          callVolume: 10,
+          intervalMs: 100000,
+          retryDelay: 30000,
+        },
+      },
     },
     trackShipment: {
       service: "Shipping",
@@ -176,6 +228,22 @@ export const Order = {
       keys: ["trackingStatus", "trackingId"],
       consumesEvent: "orderShipped",
       producesEvent: "orderDelivered",
+      timeout: 2000,
+      maxRetry: 2,
+      circuitBreaker: {
+        default: {
+          errorRate: 20,
+          callVolume: 10,
+          intervalMs: 100000,
+          retryDelay: 30000,
+        },
+        portRetryFailed_order: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 60000,
+          retryDelay: 30000,
+        },
+      },
     },
     verifyDelivery: {
       service: "Shipping",
@@ -184,6 +252,22 @@ export const Order = {
       consumesEvent: "orderDelivered",
       producesEvent: "deliveryVerified",
       undo: returnDelivery,
+      timeout: 2000,
+      maxRetry: 2,
+      circuitBreaker: {
+        default: {
+          errorRate: 20,
+          callVolume: 10,
+          intervalMs: 100000,
+          retryDelay: 30000,
+        },
+        portRetryFailed_order: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 60000,
+          retryDelay: 30000,
+        },
+      },
     },
     completePayment: {
       service: "Payment",
@@ -192,6 +276,22 @@ export const Order = {
       consumesEvent: "deliveryVerified",
       producesEvent: "workflowComplete",
       undo: refundPayment,
+      timeout: 2000,
+      maxRetry: 2,
+      circuitBreaker: {
+        default: {
+          errorRate: 20,
+          callVolume: 10,
+          intervalMs: 100000,
+          retryDelay: 30000,
+        },
+        portRetryFailed_order: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 60000,
+          retryDelay: 30000,
+        },
+      },
     },
     cancelShipment: {
       service: "Shipping",

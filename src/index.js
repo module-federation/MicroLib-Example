@@ -161,7 +161,6 @@ function hotReload() {
 //     }
 //   });
 //
-__webpack__;
 
 if (cluster.isMaster) {
   cluster.fork();
