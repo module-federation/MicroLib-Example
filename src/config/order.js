@@ -157,8 +157,8 @@ export const Order = {
         portRetryFailed_order: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000,
+          intervalMs: 120000,
+          retryDelay: 60000,
         },
       },
     },
@@ -174,15 +174,15 @@ export const Order = {
       circuitBreaker: {
         default: {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000,
         },
-        portRetryFailed_order: {
+        portRetryFailed: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000,
+          intervalMs: 120000,
+          retryDelay: 60000,
         },
       },
     },
@@ -196,11 +196,14 @@ export const Order = {
       timeout: 2000,
       maxRetry: 2,
       circuitBreaker: {
-        default: {
-          errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
-          retryDelay: 30000,
+        portTimeout:{
+
+        },
+        portRetryFailed: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 120000,
+          retryDelay: 60000,
         },
       },
     },
@@ -216,9 +219,15 @@ export const Order = {
       circuitBreaker: {
         default: {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000,
+        },
+        portRetryFailed_order: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 120000,
+          retryDelay: 60000,
         },
       },
     },
@@ -231,17 +240,11 @@ export const Order = {
       timeout: 2000,
       maxRetry: 2,
       circuitBreaker: {
-        default: {
-          errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
-          retryDelay: 30000,
-        },
         portRetryFailed_order: {
-          errorRate: 100,
-          callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000,
+          errorRate: 0,
+          callVolume: 1,
+          intervalMs: 120000,
+          retryDelay: 240000,
         },
       },
     },
@@ -257,15 +260,15 @@ export const Order = {
       circuitBreaker: {
         default: {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000,
         },
         portRetryFailed_order: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000,
+          intervalMs: 120000,
+          retryDelay: 60000,
         },
       },
     },
@@ -281,15 +284,15 @@ export const Order = {
       circuitBreaker: {
         default: {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000,
         },
         portRetryFailed_order: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000,
+          intervalMs: 120000,
+          retryDelay: 60000,
         },
       },
     },

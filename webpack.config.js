@@ -9,7 +9,9 @@ var serverConfig = {
   entry: ["@babel/polyfill", path.resolve(__dirname, "src/index.js")],
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: "http://localhost:8060",
+    //publicPath: "http://localhost:8060",
+    publicPath:
+      "https://raw.githubusercontent.com/module-federation/MicroLib-Example/pre-npm/dist/remoteEntry.js",
     libraryTarget: "commonjs",
   },
   devtool: "source-map",

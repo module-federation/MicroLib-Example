@@ -2,6 +2,50 @@ exports.id = "src_models_index_js";
 exports.ids = ["src_models_index_js"];
 exports.modules = {
 
+/***/ "./src/config/catalog.js":
+/*!*******************************!*\
+  !*** ./src/config/catalog.js ***!
+  \*******************************/
+/*! namespace exports */
+/*! export Catalog [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Catalog": () => /* binding */ Catalog
+/* harmony export */ });
+/**
+ * @type {import("../models").ModelSpecification}
+ */
+var Catalog = {
+  endpoint: "catalogs",
+  factory: function factory() {
+    return function (_ref) {
+      var a = _ref.a,
+          b = _ref.b;
+      return Object.freeze({
+        a: a,
+        b: b,
+        hi: function hi() {
+          return console.log("hi");
+        }
+      });
+    };
+  },
+  modelName: "catalog",
+  commands: {
+    hi: {
+      command: "hi",
+      acl: ["write"]
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./src/config/customer.js":
 /*!********************************!*\
   !*** ./src/config/customer.js ***!
@@ -84,6 +128,7 @@ var Customer = {
   !*** ./src/config/index.js ***!
   \*****************************/
 /*! namespace exports */
+/*! export Catalog [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/catalog.js .Catalog */
 /*! export Customer [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/customer.js .Customer */
 /*! export Order [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/order.js .Order */
 /*! export Product [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/product.js .Product */
@@ -98,12 +143,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Order": () => /* reexport safe */ _order__WEBPACK_IMPORTED_MODULE_0__.Order,
 /* harmony export */   "User": () => /* reexport safe */ _user__WEBPACK_IMPORTED_MODULE_1__.User,
 /* harmony export */   "Customer": () => /* reexport safe */ _customer__WEBPACK_IMPORTED_MODULE_2__.Customer,
-/* harmony export */   "Product": () => /* reexport safe */ _product__WEBPACK_IMPORTED_MODULE_3__.Product
+/* harmony export */   "Product": () => /* reexport safe */ _product__WEBPACK_IMPORTED_MODULE_3__.Product,
+/* harmony export */   "Catalog": () => /* reexport safe */ _catalog__WEBPACK_IMPORTED_MODULE_4__.Catalog
 /* harmony export */ });
 /* harmony import */ var _order__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./order */ "./src/config/order.js");
 /* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user */ "./src/config/user.js");
 /* harmony import */ var _customer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./customer */ "./src/config/customer.js");
 /* harmony import */ var _product__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./product */ "./src/config/product.js");
+/* harmony import */ var _catalog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./catalog */ "./src/config/catalog.js");
+
 
 
 
@@ -231,8 +279,8 @@ var Order = {
         portRetryFailed_order: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000
+          intervalMs: 120000,
+          retryDelay: 60000
         }
       }
     },
@@ -248,15 +296,15 @@ var Order = {
       circuitBreaker: {
         "default": {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000
         },
-        portRetryFailed_order: {
+        portRetryFailed: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000
+          intervalMs: 120000,
+          retryDelay: 60000
         }
       }
     },
@@ -270,11 +318,12 @@ var Order = {
       timeout: 2000,
       maxRetry: 2,
       circuitBreaker: {
-        "default": {
-          errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
-          retryDelay: 30000
+        portTimeout: {},
+        portRetryFailed: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 120000,
+          retryDelay: 60000
         }
       }
     },
@@ -290,9 +339,15 @@ var Order = {
       circuitBreaker: {
         "default": {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000
+        },
+        portRetryFailed_order: {
+          errorRate: 100,
+          callVolume: 2,
+          intervalMs: 120000,
+          retryDelay: 60000
         }
       }
     },
@@ -305,17 +360,11 @@ var Order = {
       timeout: 2000,
       maxRetry: 2,
       circuitBreaker: {
-        "default": {
-          errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
-          retryDelay: 30000
-        },
         portRetryFailed_order: {
-          errorRate: 100,
-          callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000
+          errorRate: 0,
+          callVolume: 1,
+          intervalMs: 120000,
+          retryDelay: 240000
         }
       }
     },
@@ -331,15 +380,15 @@ var Order = {
       circuitBreaker: {
         "default": {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000
         },
         portRetryFailed_order: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000
+          intervalMs: 120000,
+          retryDelay: 60000
         }
       }
     },
@@ -355,15 +404,15 @@ var Order = {
       circuitBreaker: {
         "default": {
           errorRate: 20,
-          callVolume: 10,
-          intervalMs: 100000,
+          callVolume: 30,
+          intervalMs: 10000,
           retryDelay: 30000
         },
         portRetryFailed_order: {
           errorRate: 100,
           callVolume: 2,
-          intervalMs: 60000,
-          retryDelay: 30000
+          intervalMs: 120000,
+          retryDelay: 60000
         }
       }
     },
