@@ -55,6 +55,7 @@ class ReadFileChunkLoadingRuntimeModule extends RuntimeModule {
     return Template.asString([
       `function httpRequest(params) {
   return new Promise(function(resolve, reject) {
+
     var req = require(params.protocol.slice(0, params.protocol.length - 1)).request(params, function(res) {
       if (res.statusCode < 200 || res.statusCode >= 300) {
         return reject(new Error('statusCode=' + res.statusCode));
@@ -139,9 +140,11 @@ class ReadFileChunkLoadingRuntimeModule extends RuntimeModule {
                         Template.indent([
                           "installedChunkData = installedChunks[chunkId] = [resolve, reject];",
                           `var chunkFileName = "/" + ${RuntimeGlobals.getChunkScriptFilename}(chunkId);`,
+                          `var https = require('https');`,
+                          `var httpsAgent = new https.Agent({ rejectUnauthorized: false });`,
                           `var url = new (require("url").URL)(${RuntimeGlobals.publicPath})`,
                           "url.pathname = chunkFileName;",
-                          `httpRequest(url)`,
+                          `httpRequest({url, {httpsAgent}})`,
                           Template.indent([
                             ".then((content) => {",
                             Template.indent([
