@@ -3,15 +3,20 @@ const ModuleFederationPlugin = require("webpack").container
   .ModuleFederationPlugin;
 const httpNode = require("./webpack/http-node");
 const NodemonPlugin = require("nodemon-webpack-plugin");
+const {
+  CustomCommonjsChunkLoadingPlugin,
+  HttpVmChunkLoader,
+  ReadFileVmChunkLoader,
+} = require("../custom-chunk-loading-plugin/lib/cjs");
 
 var serverConfig = {
-  target: httpNode,
+  target: "async-node",
   entry: ["@babel/polyfill", path.resolve(__dirname, "src/index.js")],
   output: {
     path: path.resolve(__dirname, "dist"),
     //publicPath: "http://localhost:8060",
     publicPath:
-      "https://raw.githubusercontent.com/module-federation/MicroLib-Example/pre-npm/dist",
+      "https://raw.githubusercontent.com/module-federation/MicroLib-Example/pre-npm/dist/",
     libraryTarget: "commonjs",
   },
   devtool: "source-map",
@@ -35,6 +40,9 @@ var serverConfig = {
   },
   plugins: [
     new NodemonPlugin(),
+    new CustomCommonjsChunkLoadingPlugin({
+      loaders: [new ReadFileVmChunkLoader(), new HttpVmChunkLoader()],
+    }),
     new ModuleFederationPlugin({
       name: "microservices",
       library: { type: "commonjs-module" },
