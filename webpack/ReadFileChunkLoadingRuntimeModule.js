@@ -53,11 +53,12 @@ class ReadFileChunkLoadingRuntimeModule extends RuntimeModule {
     const rootOutputDir = getUndoPath(outputName, false);
 
     return Template.asString([
-      `function httpRequest(params) {
+      `function httpRequest(url) {
   return new Promise(function(resolve, reject) {
     var https = require('https');
     var httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    var req = require(params.protocol.slice(0, params.protocol.length - 1)).request(params, {httpsAgent}, function(res) {
+    console.log(url);
+    var req = https.request(url, {httpsAgent}, function(res) {
       if (res.statusCode < 200 || res.statusCode >= 300) {
         return reject(new Error('statusCode=' + res.statusCode));
       }
