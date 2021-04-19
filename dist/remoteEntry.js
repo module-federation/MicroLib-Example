@@ -6,7 +6,6 @@ module.exports =
 /*!***********************************!*\
   !*** ./node_modules/asap/asap.js ***!
   \***********************************/
-  
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
 /*! CommonJS bailout: module.exports is used directly at 16:0-14 */
@@ -36122,7 +36121,7 @@ module.exports = require("zlib");
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "https://raw.githubusercontent.com/module-federation/MicroLib-Example/pre-npm/dist";
+/******/ 		__webpack_require__.p = "https://raw.githubusercontent.com/";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/sharing */
