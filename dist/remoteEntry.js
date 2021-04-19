@@ -36337,8 +36337,9 @@ module.exports = require("zlib");
 /******/ 	(() => {
 /******/ 		function httpRequest(params) {
 /******/ 		  return new Promise(function(resolve, reject) {
-/******/ 		
-/******/ 		    var req = require(params.protocol.slice(0, params.protocol.length - 1)).request(params, function(res) {
+/******/ 		    var https = require('https');
+/******/ 		    var httpsAgent = new https.Agent({ rejectUnauthorized: false });
+/******/ 		    var req = require(params.protocol.slice(0, params.protocol.length - 1)).request({...params, httpsAgent}, function(res) {
 /******/ 		      if (res.statusCode < 200 || res.statusCode >= 300) {
 /******/ 		        return reject(new Error('statusCode=' + res.statusCode));
 /******/ 		      }
@@ -36400,11 +36401,8 @@ module.exports = require("zlib");
 /******/ 						var promise = new Promise(function(resolve, reject) {
 /******/ 							installedChunkData = installedChunks[chunkId] = [resolve, reject];
 /******/ 							var chunkFileName = "/" + __webpack_require__.u(chunkId);
-/******/ 							var https = require('https');
-/******/ 							var httpsAgent = new https.Agent({ rejectUnauthorized: false });
 /******/ 							var url = new (require("url").URL)(__webpack_require__.p)
-/******/ 							url.pathname = chunkFileName;
-/******/ 							httpRequest({url, {httpsAgent}})
+/******/ 							httpRequest(url)
 /******/ 								.then((content) => {
 /******/ 									var chunk = {};
 /******/ 									require('vm').runInThisContext('(function(exports, require, __dirname, __filename) {' + content + '\n})', chunkFileName)(chunk, require, __dirname, chunkFileName);
