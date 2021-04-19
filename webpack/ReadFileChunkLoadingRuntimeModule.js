@@ -145,7 +145,7 @@ class ReadFileChunkLoadingRuntimeModule extends RuntimeModule {
                           `var url = new (require("url").URL)(${RuntimeGlobals.publicPath})`,
                           "url.pathname = chunkFileName;",
                           `var options = {httpsAgent};`,
-                          `httpRequest({url, options})`,
+                          `httpRequest(url, options)`,
                           Template.indent([
                             ".then((content) => {",
                             Template.indent([
