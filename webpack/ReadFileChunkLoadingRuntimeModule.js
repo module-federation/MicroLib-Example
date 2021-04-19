@@ -143,9 +143,7 @@ class ReadFileChunkLoadingRuntimeModule extends RuntimeModule {
                           `var https = require('https');`,
                           `var httpsAgent = new https.Agent({ rejectUnauthorized: false });`,
                           `var url = new (require("url").URL)(${RuntimeGlobals.publicPath})`,
-                          "url.pathname = chunkFileName;",
-                          `var options = {httpsAgent};`,
-                          `httpRequest(url, options)`,
+                          `httpRequest({url, httpsAgent})`,
                           Template.indent([
                             ".then((content) => {",
                             Template.indent([
