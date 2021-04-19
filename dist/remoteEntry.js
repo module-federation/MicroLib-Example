@@ -36340,7 +36340,7 @@ module.exports = require("zlib");
 /******/ 		    var https = require('https');
 /******/ 		    var httpsAgent = new https.Agent({ rejectUnauthorized: false });
 /******/ 		    console.log(url);
-/******/ 		    var req = https.request('https://raw.githubusercontent.com/module-federation/MicroLib-Example/pre-npm/dist', {httpsAgent}, function(res) {
+/******/ 		    var req = https.request(url, {httpsAgent}, function(res) {
 /******/ 		      if (res.statusCode < 200 || res.statusCode >= 300) {
 /******/ 		        return reject(new Error('statusCode=' + res.statusCode));
 /******/ 		      }
