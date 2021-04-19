@@ -57,8 +57,8 @@ class ReadFileChunkLoadingRuntimeModule extends RuntimeModule {
   return new Promise(function(resolve, reject) {
     var https = require('https');
     var httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    console.log(url);
-    var req = https.request(url, {httpsAgent}, function(res) {
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>",url.toString());
+    var req = https.request(url.toString(), {httpsAgent}, function(res) {
       if (res.statusCode < 200 || res.statusCode >= 300) {
         return reject(new Error('statusCode=' + res.statusCode));
       }
