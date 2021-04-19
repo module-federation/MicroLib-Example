@@ -36121,7 +36121,7 @@ module.exports = require("zlib");
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "https://raw.githubusercontent.com/";
+/******/ 		__webpack_require__.p = "https://raw.githubusercontent.com";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/sharing */
