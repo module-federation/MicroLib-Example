@@ -10,7 +10,8 @@ var serverConfig = {
   output: {
     path: path.resolve(__dirname, "dist"),
     //publicPath: "http://localhost:8060",
-    publicPath: "https://raw.githubusercontent.com",
+    publicPath:
+      "https://raw.githubusercontent.com/module-federation/MicroLib-Example/pre-npm",
     libraryTarget: "commonjs",
   },
   devtool: "source-map",
