@@ -65,7 +65,7 @@ const gitpath = process.env.GITHUB_PATH || "dist";
 
 const octokit = new Octokit({ auth: token });
 
-function httpRequest(url) {
+function fetchGit(url) {
   return new Promise(function (resolve, reject) {
     octokit
       .request(
@@ -97,7 +97,12 @@ function httpRequest(url) {
       });
   });
 }
-function httpRequest2(params) {
+function httpRequest(params) {
+  if (/github/i.test(params.url)) 
+    return fetchGit(params)
+  return httpRequestPlain(params)
+}
+function httpRequestPlain(params) {
   return new Promise(function(resolve, reject) {
     var req = require(params.protocol.slice(0, params.protocol.length - 1)).request(params, function(res) {
       if (res.statusCode < 200 || res.statusCode >= 300) {
