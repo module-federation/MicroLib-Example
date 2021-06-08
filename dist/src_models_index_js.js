@@ -2,91 +2,12 @@ exports.id = "src_models_index_js";
 exports.ids = ["src_models_index_js"];
 exports.modules = {
 
-/***/ "./src/config/customer.js":
-/*!********************************!*\
-  !*** ./src/config/customer.js ***!
-  \********************************/
-/*! namespace exports */
-/*! export Customer [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Customer": () => /* binding */ Customer
-/* harmony export */ });
-/* harmony import */ var _models_customer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/customer */ "./src/models/customer.js");
-/* harmony import */ var _models_mixins__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/mixins */ "./src/models/mixins.js");
-/* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/utils */ "./src/lib/utils.js");
-/* harmony import */ var _datasources_datasource_mongodb__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../datasources/datasource-mongodb */ "./src/datasources/datasource-mongodb.js");
-
-
-
-
-
-
-/**
- * @type {import('../models/index').ModelSpecification}
- */
-
-var Customer = {
-  modelName: "customer",
-  endpoint: "customers",
-  dependencies: {
-    uuid: _lib_utils__WEBPACK_IMPORTED_MODULE_2__.uuid
-  },
-  factory: _models_customer__WEBPACK_IMPORTED_MODULE_0__.customerFactory,
-  validate: _models_mixins__WEBPACK_IMPORTED_MODULE_1__.validateModel,
-  onDelete: _models_customer__WEBPACK_IMPORTED_MODULE_0__.okToDelete,
-  datasource: {
-    factory: _datasources_datasource_mongodb__WEBPACK_IMPORTED_MODULE_3__.DataSourceAdapterMongoDb,
-    url: "mongodb://localhost:27017",
-    cacheSize: 2000
-  },
-  mixins: [(0,_models_mixins__WEBPACK_IMPORTED_MODULE_1__.freezeProperties)("customerId"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_1__.requireProperties)("firstName", "lastName", "email", "shippingAddress", "billingAddress", "creditCardNumber"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_1__.validateProperties)([{
-    propKey: "email",
-    unique: {
-      encrypted: true
-    },
-    regex: "email"
-  }, {
-    propKey: "creditCardNumber",
-    regex: "creditCard"
-  }])],
-  relations: {
-    orders: {
-      modelName: "order",
-      type: "oneToMany",
-      foreignKey: "customerId"
-    }
-  },
-  commands: {
-    decrypt: {
-      command: "decrypt",
-      acl: ["read", "decrypt"]
-    }
-  },
-  accessControlList: {
-    customer: {
-      allow: "read",
-      type: "relation",
-      desc: "Allow orders to see customers."
-    }
-  }
-};
-
-/***/ }),
-
 /***/ "./src/config/index.js":
 /*!*****************************!*\
   !*** ./src/config/index.js ***!
   \*****************************/
 /*! namespace exports */
-/*! export Customer [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/customer.js .Customer */
 /*! export Order [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/order.js .Order */
-/*! export Product [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/product.js .Product */
 /*! export User [provided] [no usage info] [missing usage info prevents renaming] -> ./src/config/user.js .User */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
@@ -96,18 +17,13 @@ var Customer = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Order": () => /* reexport safe */ _order__WEBPACK_IMPORTED_MODULE_0__.Order,
-/* harmony export */   "User": () => /* reexport safe */ _user__WEBPACK_IMPORTED_MODULE_1__.User,
-/* harmony export */   "Customer": () => /* reexport safe */ _customer__WEBPACK_IMPORTED_MODULE_2__.Customer,
-/* harmony export */   "Product": () => /* reexport safe */ _product__WEBPACK_IMPORTED_MODULE_3__.Product
+/* harmony export */   "User": () => /* reexport safe */ _user__WEBPACK_IMPORTED_MODULE_1__.User
 /* harmony export */ });
 /* harmony import */ var _order__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./order */ "./src/config/order.js");
 /* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user */ "./src/config/user.js");
-/* harmony import */ var _customer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./customer */ "./src/config/customer.js");
-/* harmony import */ var _product__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./product */ "./src/config/product.js");
 
-
-
-
+ // export * from "./customer";
+// export * from "./product";
 
 /***/ }),
 
@@ -156,7 +72,7 @@ console.log("loading models.order module...");
 var Order = {
   modelName: "order",
   endpoint: "orders",
-  factory: _models_order__WEBPACK_IMPORTED_MODULE_0__.orderFactory,
+  factory: _models_order__WEBPACK_IMPORTED_MODULE_0__.makeOrderFactory,
   // datasource: {
   //   factory: DataSourceAdapterMongoDb,
   //   url: "mongodb://localhost:27017",
@@ -374,36 +290,6 @@ var Order = {
     },
     enabled: false
   }]
-};
-
-/***/ }),
-
-/***/ "./src/config/product.js":
-/*!*******************************!*\
-  !*** ./src/config/product.js ***!
-  \*******************************/
-/*! namespace exports */
-/*! export Product [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Product": () => /* binding */ Product
-/* harmony export */ });
-var Product = {
-  factory: function factory() {
-    return function (a) {
-      return {
-        a: a,
-        b: "valb"
-      };
-    };
-  },
-  modelName: "product",
-  endpoint: "products"
 };
 
 /***/ }),
@@ -859,96 +745,6 @@ function checkPayload(key) {
       model: model
     });
   });
-}
-
-/***/ }),
-
-/***/ "./src/models/customer.js":
-/*!********************************!*\
-  !*** ./src/models/customer.js ***!
-  \********************************/
-/*! namespace exports */
-/*! export customerFactory [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export okToDelete [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "customerFactory": () => /* binding */ customerFactory,
-/* harmony export */   "okToDelete": () => /* binding */ okToDelete
-/* harmony export */ });
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function customerFactory(_ref) {
-  var uuid = _ref.uuid;
-  return function createCustomer() {
-    var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-        firstName = _ref2.firstName,
-        lastName = _ref2.lastName,
-        shippingAddress = _ref2.shippingAddress,
-        creditCardNumber = _ref2.creditCardNumber,
-        _ref2$billingAddress = _ref2.billingAddress,
-        billingAddress = _ref2$billingAddress === void 0 ? shippingAddress : _ref2$billingAddress,
-        phone = _ref2.phone,
-        email = _ref2.email,
-        userId = _ref2.userId;
-
-    return Object.freeze({
-      customerId: uuid(),
-      firstName: firstName,
-      lastName: lastName,
-      creditCardNumber: creditCardNumber,
-      shippingAddress: shippingAddress,
-      billingAddress: billingAddress,
-      phone: phone,
-      email: email,
-      userId: userId
-    });
-  };
-}
-function okToDelete(_x) {
-  return _okToDelete.apply(this, arguments);
-}
-
-function _okToDelete() {
-  _okToDelete = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(customer) {
-    var orders;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return customer.orders();
-
-          case 3:
-            orders = _context.sent;
-            return _context.abrupt("return", orders.length > 0);
-
-          case 7:
-            _context.prev = 7;
-            _context.t0 = _context["catch"](0);
-            console.error({
-              func: okToDelete.name,
-              error: _context.t0
-            });
-            return _context.abrupt("return", true);
-
-          case 11:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[0, 7]]);
-  }));
-  return _okToDelete.apply(this, arguments);
 }
 
 /***/ }),
@@ -2228,7 +2024,7 @@ var GlobalMixins = [encryptPersonalInfo];
 /*! export freezeOnCompletion [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export handleOrderEvent [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export handleStatusChange [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export orderFactory [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export makeOrderFactory [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export orderPicked [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export orderShipped [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export orderTotalValid [provided] [no usage info] [missing usage info prevents renaming] */
@@ -2275,7 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "refundPayment": () => /* binding */ refundPayment,
 /* harmony export */   "handleStatusChange": () => /* binding */ handleStatusChange,
 /* harmony export */   "handleOrderEvent": () => /* binding */ handleOrderEvent,
-/* harmony export */   "orderFactory": () => /* binding */ orderFactory,
+/* harmony export */   "makeOrderFactory": () => /* binding */ makeOrderFactory,
 /* harmony export */   "approve": () => /* binding */ approve,
 /* harmony export */   "cancel": () => /* binding */ cancel,
 /* harmony export */   "submit": () => /* binding */ submit,
@@ -3105,7 +2901,7 @@ function needsSignature(input, orderTotal) {
  */
 
 
-function orderFactory(dependencies) {
+function makeOrderFactory(dependencies) {
   return /*#__PURE__*/function () {
     var _createOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(_ref7) {
       var _order;
