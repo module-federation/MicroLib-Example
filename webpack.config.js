@@ -11,7 +11,7 @@ var serverConfig = {
     path: path.resolve(__dirname, "dist"),
     //publicPath: "http://localhost:8060",
     publicPath:
-      "https://api.github.com/module-federation/MicroLib-Example/dist?ref=master",
+      "https://api.github.com/module-federation/MicroLib-Example/dist?ref=customer-server",
     libraryTarget: "commonjs",
   },
   devtool: "source-map",

@@ -65,7 +65,7 @@ const gitpath = process.env.GITHUB_PATH || "dist";
 
 const octokit = new Octokit({ auth: token });
 
-function giTit(url) {
+function githubFetch(url) {
   return new Promise(function (resolve, reject) {
     octokit
     .request(
@@ -99,10 +99,10 @@ function giTit(url) {
 }
 function httpRequest(url) {
   if (/github/i.test(url.hostname)) 
-    return giTit(url)
-  return httpRequestPlain(url)
+    return githubFetch(url)
+  return httpGet(url)
 }
-function httpRequestPlain(params) {
+function httpGet(params) {
   return new Promise(function(resolve, reject) {
     var req = require(params.protocol.slice(0, params.protocol.length - 1)).request(params, function(res) {
       if (res.statusCode < 200 || res.statusCode >= 300) {
