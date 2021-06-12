@@ -11,6 +11,8 @@
   },
   "scripts": {
     "build": "npm run clean && webpack --config webpack.config.js",
+    "build-order": "cp test/config/index.order.js src/config/index.js && npm run build",
+    "build-customer": "cp index.customer.js src/config/index.js && npm run build",
     "build-cache": "npm run clean && webpack --config webpack.cache.config.js",
     "start": "node -r dotenv/config dist/main.js",
     "start-all": "npm run kafka-stop && npm run kafka-start && node -r dotenv/config dist/main.js",
