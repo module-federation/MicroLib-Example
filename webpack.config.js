@@ -10,7 +10,7 @@ var serverConfig = {
   output: {
     path: path.resolve(__dirname, "dist"),
     publicPath:
-      "https://api.github.com?owner=module-federation&repo=microlib-example&filedir=dist&branch=master",
+      "https://api.github.com?owner=module-federation&repo=microlib-example&filedir=dist&branch=test-customer",
     libraryTarget: "commonjs",
   },
   devtool: "source-map",
