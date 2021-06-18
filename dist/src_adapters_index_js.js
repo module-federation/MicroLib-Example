@@ -210,7 +210,7 @@ function filterMatches(message) {
   return function (filter) {
     var regex = new RegExp(filter);
     var result = regex.test(message);
-    console.debug({
+    if (result) console.debug({
       func: filterMatches.name,
       filter: filter,
       result: result,
