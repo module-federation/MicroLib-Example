@@ -599,20 +599,20 @@ export function timeoutCallback({ port, ports, adapterFn, model: order }) {
  */
 export async function returnInventory(order) {
   console.log(returnInventory.name);
-  await order.update({ orderStatus: OrderStatus.CANCELED });
+  return order.update({ orderStatus: OrderStatus.CANCELED });
 }
 
 export async function returnShipment(order) {
   console.log(returnShipment.name);
-  await order.update({ orderStatus: OrderStatus.CANCELED });
+  return order.update({ orderStatus: OrderStatus.CANCELED });
 }
 
 export async function returnDelivery(order) {
   console.log(returnDelivery.name);
-  await order.update({ orderStatus: OrderStatus.CANCELED });
+  return order.update({ orderStatus: OrderStatus.CANCELED });
 }
 
 export async function cancelPayment(order) {
   console.log(cancelPayment.name);
-  await order.update({ orderStatus: OrderStatus.CANCELED });
+  return order.update({ orderStatus: OrderStatus.CANCELED });
 }
