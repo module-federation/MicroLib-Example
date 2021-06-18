@@ -67,7 +67,7 @@ function filterMatches(message) {
         func: filterMatches.name,
         filter,
         result,
-        message: message.substring(0, 30).concat("..."),
+        message: message.substring(0, 100).concat("..."),
       });
     return result;
   };
