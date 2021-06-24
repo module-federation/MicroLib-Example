@@ -40,12 +40,12 @@ var Customer = {
   factory: _models_customer__WEBPACK_IMPORTED_MODULE_2__.makeCustomerFactory,
   validate: _models_mixins__WEBPACK_IMPORTED_MODULE_0__.validateModel,
   onDelete: _models_customer__WEBPACK_IMPORTED_MODULE_2__.okToDelete,
-  datasource: {
-    factory: _datasources_datasource_mongodb__WEBPACK_IMPORTED_MODULE_3__.DataSourceAdapterMongoDb,
-    url: "mongodb://localhost:27017",
-    cacheSize: 2000,
-    baseClass: "DataSourceMongoDb"
-  },
+  // datasource: {
+  //   factory: DataSourceAdapterMongoDb,
+  //   url: "mongodb://localhost:27017",
+  //   cacheSize: 2000,
+  //   baseClass: "DataSourceMongoDb",
+  // },
   mixins: [(0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.freezeProperties)("customerId"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.requireProperties)("firstName", "lastName", "email", "shippingAddress", "billingAddress", "creditCardNumber"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.validateProperties)([{
     propKey: "email",
     unique: {
