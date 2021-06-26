@@ -26,7 +26,7 @@
     "hot-reload": "curl http://localhost:8070/microlib/reload",
     "kafka-start": "npm run kafka-stop && scripts/start-kafka.sh && sleep 5 && npm run kafka-topics-create",
     "kafka-stop": "scripts/stop-kafka.sh",
-    "kafka-clear-events": "npm run kafka-topics-delete && npm run kafka-topics-create",
+                                   "                                                                                                                                                                                                                            kafka-clear-events": "npm run kafka-topics-delete && npm run kafka-topics-create",
     "kafka-topics-delete": "scripts/delete-topics.sh",
     "kafka-topics-create": "scripts/create-topics.sh",
     "refresh-token": "./accessToken.sh"
