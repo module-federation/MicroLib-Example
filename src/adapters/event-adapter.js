@@ -62,13 +62,13 @@ function filterMatches(message) {
   return function (filter) {
     const regex = new RegExp(filter);
     const result = regex.test(message);
-    if (result)
-      console.debug({
-        func: filterMatches.name,
-        filter,
-        result,
-        message: message.substring(0, 100).concat("..."),
-      });
+    //if (result)
+    console.debug({
+      func: filterMatches.name,
+      filter,
+      result,
+      message: message.substring(0, 100).concat("..."),
+    });
     return result;
   };
 }

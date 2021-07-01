@@ -209,8 +209,9 @@ var subscriptions = new Map();
 function filterMatches(message) {
   return function (filter) {
     var regex = new RegExp(filter);
-    var result = regex.test(message);
-    if (result) console.debug({
+    var result = regex.test(message); //if (result)
+
+    console.debug({
       func: filterMatches.name,
       filter: filter,
       result: result,
