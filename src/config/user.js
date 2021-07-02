@@ -14,4 +14,11 @@ export const User = {
   factory: userFactory,
   mixins: userMixins,
   validate: validateModel,
+  relations: {
+    customer: {
+      foreignKey: customerId,
+      type: "oneToOne",
+      modelName: "customer",
+    },
+  },
 };
