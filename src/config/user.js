@@ -16,7 +16,7 @@ export const User = {
   validate: validateModel,
   relations: {
     customer: {
-      foreignKey: customerId,
+      foreignKey: "customerId",
       type: "oneToOne",
       modelName: "customer",
     },
