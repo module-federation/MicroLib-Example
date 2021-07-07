@@ -10,7 +10,7 @@ var serverConfig = {
   output: {
     path: path.resolve(__dirname, "dist"),
     publicPath:
-      "https://api.github.com?owner=module-federation&repo=microlib-example&filedir=dist&branch=master",
+      "https://api.github.com?owner=module-federation&repo=microlib-example&filedir=dist&branch=new-customer",
     libraryTarget: "commonjs",
   },
   devtool: "source-map",
@@ -44,7 +44,7 @@ var serverConfig = {
         "./services": "./src/services",
         "./validations": "./src/models/mixins",
         "./event-bus": "./src/services/event-bus",
-        "./webswitch": "./src/services/webswitch"
+        "./webswitch": "./src/services/webswitch",
       },
       shared: {
         axios: {
