@@ -7,8 +7,6 @@
 
 import WebSocket from "ws";
 import dns from "dns/promises";
-import http from "http";
-import https from "https";
 
 const FQDN = process.env.WEBSWITCH_HOST || "webswitch.aegis.dev";
 const PORT = 8062;
@@ -57,7 +55,7 @@ export async function publishEvent(event, observer, useWebswitch = true) {
 
         webswitchClient.on("message", function (message) {
           // const event = JSON.parse(message);
-          console.debug(messaage);
+          console.debug(message);
           observer.notify(event.eventName, event);
         });
       }
@@ -69,6 +67,9 @@ export async function publishEvent(event, observer, useWebswitch = true) {
     console.warn(publishEvent.name, e.message);
   }
 }
+
+// import http from "http";
+// import https from "https";
 
 // function getHeaders(method, payload) {
 //   const contentLength = ["POST", "PATCH"].includes(method)
