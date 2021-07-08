@@ -31809,7 +31809,7 @@ var moduleMap = {
 		return __webpack_require__.e("src_adapters_index_js").then(() => () => (__webpack_require__(/*! ./src/adapters */ "./src/adapters/index.js")));
 	},
 	"./services": () => {
-		return Promise.all([__webpack_require__.e("vendors-node_modules_websocket_index_js"), __webpack_require__.e("src_adapters_index_js"), __webpack_require__.e("src_services_webswitch_js"), __webpack_require__.e("src_services_index_js")]).then(() => () => (__webpack_require__(/*! ./src/services */ "./src/services/index.js")));
+		return Promise.all([__webpack_require__.e("vendors-node_modules_ws_index_js"), __webpack_require__.e("src_adapters_index_js"), __webpack_require__.e("src_services_index_js")]).then(() => () => (__webpack_require__(/*! ./src/services */ "./src/services/index.js")));
 	},
 	"./validations": () => {
 		return __webpack_require__.e("src_models_mixins_js").then(() => () => (__webpack_require__(/*! ./src/models/mixins */ "./src/models/mixins.js")));
@@ -31818,7 +31818,7 @@ var moduleMap = {
 		return Promise.all([__webpack_require__.e("src_adapters_index_js"), __webpack_require__.e("src_services_event-bus_js")]).then(() => () => (__webpack_require__(/*! ./src/services/event-bus */ "./src/services/event-bus.js")));
 	},
 	"./webswitch": () => {
-		return Promise.all([__webpack_require__.e("vendors-node_modules_websocket_index_js"), __webpack_require__.e("src_services_webswitch_js")]).then(() => () => (__webpack_require__(/*! ./src/services/webswitch */ "./src/services/webswitch.js")));
+		return Promise.all([__webpack_require__.e("vendors-node_modules_ws_index_js"), __webpack_require__.e("src_services_webswitch_js")]).then(() => () => (__webpack_require__(/*! ./src/services/webswitch */ "./src/services/webswitch.js")));
 	}
 };
 var get = (module) => {
@@ -31856,19 +31856,6 @@ __webpack_require__.d(exports, {
 
 "use strict";
 module.exports = require("assert");
-
-/***/ }),
-
-/***/ "buffer":
-/*!*************************!*\
-  !*** external "buffer" ***!
-  \*************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("buffer");
 
 /***/ }),
 
