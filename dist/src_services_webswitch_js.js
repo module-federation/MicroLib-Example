@@ -90,11 +90,20 @@ function _getHostName() {
   return _getHostName.apply(this, arguments);
 }
 
-var webswitchClient;
+var ws;
 function publishEvent(_x, _x2) {
   return _publishEvent.apply(this, arguments);
-} // import http from "http";
-// import https from "https";
+} // setTimeout(() => {
+//   webswitchClient.ping();
+// }, 30000);
+// const timerId = setTimeout(() => {
+//   webswitchClient.terminate();
+//   webswitch();
+// }, 60000);
+// webswitchClient.on("pong", function () {
+//   clearTimeout(timerId);
+//   setTimeout(() => webswitchClient.ping(), 30000);
+// });
 // function getHeaders(method, payload) {
 //   const contentLength = ["POST", "PATCH"].includes(method)
 //     ? Buffer.byteLength(payload)
@@ -183,27 +192,24 @@ function _publishEvent() {
               webswitch = function webswitch() {
                 console.debug("sending", event);
 
-                if (!webswitchClient) {
-                  webswitchClient = new (ws__WEBPACK_IMPORTED_MODULE_0___default())("ws://".concat(hostname, ":").concat(PORT).concat(PATH)); // setTimeout(() => {
-                  //   webswitchClient.ping();
-                  // }, 30000);
-                  // const timerId = setTimeout(() => {
-                  //   webswitchClient.terminate();
-                  //   webswitch();
-                  // }, 60000);
-                  // webswitchClient.on("pong", function () {
-                  //   clearTimeout(timerId);
-                  //   setTimeout(() => webswitchClient.ping(), 30000);
-                  // });
-
-                  webswitchClient.on("message", function (message) {
+                if (!ws) {
+                  ws = new (ws__WEBPACK_IMPORTED_MODULE_0___default())("ws://".concat(hostname, ":").concat(PORT).concat(PATH));
+                  ws.on("message", function (message) {
                     var event = JSON.parse(message);
                     console.debug(message);
+                    console.debug(event);
                     observer.notify(event.eventName, event);
                   });
+                  ws.on("open", function () {
+                    ws.send(serializedEvent);
+                  });
+                  ws.on("error", function (error) {
+                    console.error("webswitchClient.on(error)", error);
+                  });
+                  return;
                 }
 
-                webswitchClient.send(serializedEvent);
+                ws.send(serializedEvent);
               };
 
               webswitch();

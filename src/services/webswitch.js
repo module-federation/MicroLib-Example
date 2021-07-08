@@ -24,7 +24,7 @@ async function getHostName() {
 }
 
 /**@type import("ws/lib/websocket") */
-let webswitchClient;
+let ws;
 
 export async function publishEvent(event, observer, useWebswitch = true) {
   if (!event) return;
@@ -36,31 +36,26 @@ export async function publishEvent(event, observer, useWebswitch = true) {
     function webswitch() {
       console.debug("sending", event);
 
-      if (!webswitchClient) {
-        webswitchClient = new WebSocket(`ws://${hostname}:${PORT}${PATH}`);
+      if (!ws) {
+        ws = new WebSocket(`ws://${hostname}:${PORT}${PATH}`);
 
-        // setTimeout(() => {
-        //   webswitchClient.ping();
-        // }, 30000);
-
-        // const timerId = setTimeout(() => {
-        //   webswitchClient.terminate();
-        //   webswitch();
-        // }, 60000);
-
-        // webswitchClient.on("pong", function () {
-        //   clearTimeout(timerId);
-        //   setTimeout(() => webswitchClient.ping(), 30000);
-        // });
-
-        webswitchClient.on("message", function (message) {
+        ws.on("message", function (message) {
           const event = JSON.parse(message);
           console.debug(message);
+          console.debug(event);
           observer.notify(event.eventName, event);
         });
-      }
 
-      webswitchClient.send(serializedEvent);
+        ws.on("open", function () {
+          ws.send(serializedEvent);
+        });
+
+        ws.on("error", function (error) {
+          console.error("webswitchClient.on(error)", error);
+        });
+        return;
+      }
+      ws.send(serializedEvent);
     }
     webswitch();
   } catch (e) {
@@ -68,8 +63,19 @@ export async function publishEvent(event, observer, useWebswitch = true) {
   }
 }
 
-// import http from "http";
-// import https from "https";
+// setTimeout(() => {
+//   webswitchClient.ping();
+// }, 30000);
+
+// const timerId = setTimeout(() => {
+//   webswitchClient.terminate();
+//   webswitch();
+// }, 60000);
+
+// webswitchClient.on("pong", function () {
+//   clearTimeout(timerId);
+//   setTimeout(() => webswitchClient.ping(), 30000);
+// });
 
 // function getHeaders(method, payload) {
 //   const contentLength = ["POST", "PATCH"].includes(method)
