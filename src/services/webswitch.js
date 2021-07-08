@@ -54,7 +54,7 @@ export async function publishEvent(event, observer, useWebswitch = true) {
         // });
 
         webswitchClient.on("message", function (message) {
-          // const event = JSON.parse(message);
+          const event = JSON.parse(message);
           console.debug(message);
           observer.notify(event.eventName, event);
         });
