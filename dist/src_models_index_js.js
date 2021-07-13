@@ -48,9 +48,7 @@ var Customer = {
   // },
   mixins: [(0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.freezeProperties)("customerId"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.requireProperties)("firstName", "lastName", "email", "shippingAddress", "billingAddress", "creditCardNumber"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.validateProperties)([{
     propKey: "email",
-    unique: {
-      encrypted: true
-    },
+    //unique: { encrypted: true },
     regex: "email"
   }, {
     propKey: "creditCardNumber",
