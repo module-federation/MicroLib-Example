@@ -160,7 +160,7 @@
  * URL parameter or query of the auto-generated REST API
  * @property {accessControlList} [accessControlList] - configure authorization
  * @property {endpoints} [endpoints] - additional custom API endpoints - specify inbound port
- * @property {{factory:import("../datasources/datasource-mongodb/"),url:string,credentials?:string}} [datasource] - custom datasource
+ * @property {{factory:import("../adapters/datasources/datasource-mongodb"),url:string,credentials?:string}} [datasource] - custom datasource
  * for this model. If not set, the default set by the server is used.
  *
  */

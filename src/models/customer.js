@@ -1,5 +1,14 @@
 "use strict";
 
+/**
+ * @typedef Customer
+ * @property {string} email
+ * @property {string} firstName
+ * @property {string} lastName
+ * @property {string} creditCardNumber
+ * @property {Symbol} id
+ */
+
 export function makeCustomerFactory({ uuid }) {
   return function createCustomer({
     firstName,

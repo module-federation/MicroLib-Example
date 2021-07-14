@@ -33,7 +33,7 @@ import {
   validateModel,
 } from "../models/mixins";
 
-import { DataSourceAdapterMongoDb } from "../datasources/datasource-mongodb";
+import { DataSourceAdapterMongoDb } from "../adapters/datasources/datasource-mongodb";
 import { nanoid } from "nanoid";
 
 /**

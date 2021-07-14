@@ -4,12 +4,13 @@ import { prevmodel } from "./mixins";
 import checkPayload from "./check-payload";
 import { async, encrypt } from "../lib/utils";
 
-/**w
- * @typedef {string|RegExp} topic
- * @typedef {function(string)} eventCallback
- * @typedef {import('../adapters/index').adapterFunction} adapterFunction
- * @typedef {string} id
- *
+/** @typedef {string|RegExp} topic*/
+/** @typedef {function(string)} eventCallback*/
+/** @typedef {import('../adapters/index').adapterFunction} adapterFunction*/
+/** @typedef {string} id */
+/** @typedef {import("./customer").Customer} Customer */
+
+/**
  * @typedef {Object} Order
  * @property {function(topic,eventCallback)} listen - listen for events
  * @property {import('../adapters/event-adapter').notifyType} notify
@@ -18,11 +19,10 @@ import { async, encrypt } from "../lib/utils";
  * @property {adapterFunction} verifyDelivery - verify the order was received by the customer
  * @property {adapterFunction} trackShipment
  * @property {adapterFunction} refundPayment
- * @property {adapterFunction} compensate - undo all transactions up to this point
+ * @property {adapterFunction} undo - undo all transactions up to this point
  * @property {function():Promise<Order>} pickOrder - pick the items and get them ready for shipment
  * @property {adapterFunction} authorizePayment - verify payment info, credit avail
- * @property {import('../adapters/shipping-adapter')} shipOrder
- * {import('../adapters/shipping-adapter').shipOrder} shipOrder -
+ * @property {import('../adapters/shipping-adapter').shipOrder} shipOrder -
  * calls shipping service to request delivery
  * @property {function(Order):Promise<void>} save - saves order
  * @property {function():Promise<Order>} find - finds order
@@ -32,12 +32,15 @@ import { async, encrypt } from "../lib/utils";
  * @property {function():Order} decrypt - decrypts encypted properties
  * @property {function({key1:any,keyN:any}, boolean):Promise<Order>} update - update the order,
  * set the second arg to false to turn off validation.
- * @property {'APPROVED'|'SHIPPING'|'CANCELED'|'COMPLETED'} orderStatus
- * @property {function(...args):Promise<import("../models/index").Model>} customer - retrieves related customer object
- * or, if args are provided, creates a new customer object ("fromModel" will use all the properties of order as args.)
- * @property {function(string,Order)} emit - broadcast domain event
+ * @property {'PENDING'|'APPROVED'|'SHIPPING'|'CANCELED'|'COMPLETED'} orderStatus
+ * @property {function(...args):Promise<import("../models/index").Model>} customer - retrieves related customer object,
+ * or if args are provided, creates a new customer object, using the provided args as the input.
+ * @property {function(string,Order):Promise} emit - broadcast domain event
  * @property {function():boolean} paymentAccepted - payment approved and funds reserved
  * @property {function():boolean} autoCheckout - whether or not to immediately submit the order
+ * @property {boolean} saveShippingDetails save customer shipping and payment details as a customer record
+ * @property {{itemId:string,price:number,qty:number}[]} orderItems
+ * @property {Symbol} customerId {@link Customer}
  */
 
 const orderStatus = "orderStatus";
@@ -51,8 +54,6 @@ export const OrderStatus = {
   COMPLETE: "COMPLETE",
   CANCELED: "CANCELED",
 };
-
-const CREATE_CUSTOMER_EVENT = "addModel:CREATECUSTOMER";
 
 /**
  *
@@ -360,6 +361,8 @@ async function getCustomerOrder(order) {
       ...order,
       ...order.decrypt(),
     });
+
+    return order;
     // if (customer) {
     //   return order.update({ customerId: customer.getId() });
     // }
