@@ -364,9 +364,10 @@ async function getCustomerOrder(order) {
 
     const customer = await order.customer(userData);
 
+    console.assert(customer.getId(), "customer not created");
     console.assert(
-      (await order.update({ comment: "test" })).customerId === customer.getId(),
-      "customer not created correctly"
+      (await customer.orders())[0].customerId === customer.getId(),
+      "customer has at least one order and fk=pks"
     );
   }
 
