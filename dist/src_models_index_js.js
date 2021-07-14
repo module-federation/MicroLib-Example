@@ -96,10 +96,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(nanoid__WEBPACK_IMPORTED_MODULE_3__);
 
 
-var _Customer;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -108,45 +104,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
  * @type {import('../models/index').ModelSpecification}
  */
 
-var Customer = (_Customer = {
+var Customer = {
   modelName: "customer",
   endpoint: "customers",
   dependencies: {
-    uuid: uuid
+    uuid: function uuid() {
+      return (0,nanoid__WEBPACK_IMPORTED_MODULE_3__.nanoid)(8);
+    }
   },
   factory: _models_customer__WEBPACK_IMPORTED_MODULE_1__.makeCustomerFactory,
   validate: _models_mixins__WEBPACK_IMPORTED_MODULE_0__.validateModel,
-  onDelete: _models_customer__WEBPACK_IMPORTED_MODULE_1__.okToDelete
-}, _defineProperty(_Customer, "dependencies", {
-  uuid: function uuid() {
-    return (0,nanoid__WEBPACK_IMPORTED_MODULE_3__.nanoid)(8);
+  onDelete: _models_customer__WEBPACK_IMPORTED_MODULE_1__.okToDelete,
+  // datasource: {
+  //   factory: DataSourceAdapterMongoDb,
+  //   url: "mongodb://localhost:27017",
+  //   cacheSize: 2000,
+  //   baseClass: "DataSourceMongoDb",
+  // },
+  mixins: [(0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.freezeProperties)("customerId"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.requireProperties)("firstName", "lastName", "email", "shippingAddress", "billingAddress", "creditCardNumber"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.validateProperties)([{
+    propKey: "email",
+    //unique: { encrypted: true },
+    regex: "email"
+  }, {
+    propKey: "creditCardNumber",
+    regex: "creditCard"
+  }])],
+  relations: {
+    orders: {
+      modelName: "order",
+      type: "oneToMany",
+      foreignKey: "customerId",
+      desc: "one customer has many orders, each order has one customer"
+    }
+  },
+  commands: {
+    decrypt: {
+      command: "decrypt",
+      acl: ["read", "decrypt"]
+    }
+  },
+  accessControlList: {
+    customer: {
+      allow: "read",
+      type: "relation",
+      desc: "Allow orders to see customers."
+    }
   }
-}), _defineProperty(_Customer, "mixins", [(0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.freezeProperties)("customerId"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.requireProperties)("firstName", "lastName", "email", "shippingAddress", "billingAddress", "creditCardNumber"), (0,_models_mixins__WEBPACK_IMPORTED_MODULE_0__.validateProperties)([{
-  propKey: "email",
-  //unique: { encrypted: true },
-  regex: "email"
-}, {
-  propKey: "creditCardNumber",
-  regex: "creditCard"
-}])]), _defineProperty(_Customer, "relations", {
-  orders: {
-    modelName: "order",
-    type: "oneToMany",
-    foreignKey: "customerId",
-    desc: "one customer has many orders, each order has one customer"
-  }
-}), _defineProperty(_Customer, "commands", {
-  decrypt: {
-    command: "decrypt",
-    acl: ["read", "decrypt"]
-  }
-}), _defineProperty(_Customer, "accessControlList", {
-  customer: {
-    allow: "read",
-    type: "relation",
-    desc: "Allow orders to see customers."
-  }
-}), _Customer);
+};
 
 /***/ }),
 
@@ -368,22 +372,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function makeCustomerFactory(_ref) {
-  var uuid = _ref.uuid;
+function makeCustomerFactory(dependencies) {
   return function createCustomer() {
-    var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-        firstName = _ref2.firstName,
-        lastName = _ref2.lastName,
-        shippingAddress = _ref2.shippingAddress,
-        creditCardNumber = _ref2.creditCardNumber,
-        _ref2$billingAddress = _ref2.billingAddress,
-        billingAddress = _ref2$billingAddress === void 0 ? shippingAddress : _ref2$billingAddress,
-        phone = _ref2.phone,
-        email = _ref2.email,
-        userId = _ref2.userId;
+    var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        firstName = _ref.firstName,
+        lastName = _ref.lastName,
+        shippingAddress = _ref.shippingAddress,
+        creditCardNumber = _ref.creditCardNumber,
+        _ref$billingAddress = _ref.billingAddress,
+        billingAddress = _ref$billingAddress === void 0 ? shippingAddress : _ref$billingAddress,
+        phone = _ref.phone,
+        email = _ref.email,
+        userId = _ref.userId;
 
     return Object.freeze({
-      customerId: uuid(),
+      customerId: dependencies.uuid(),
       firstName: firstName,
       lastName: lastName,
       creditCardNumber: creditCardNumber,

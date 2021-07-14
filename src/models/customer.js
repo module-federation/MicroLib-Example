@@ -9,7 +9,7 @@
  * @property {Symbol} id
  */
 
-export function makeCustomerFactory({ uuid }) {
+export function makeCustomerFactory(dependencies) {
   return function createCustomer({
     firstName,
     lastName,
@@ -21,7 +21,7 @@ export function makeCustomerFactory({ uuid }) {
     userId,
   } = {}) {
     return Object.freeze({
-      customerId: uuid(),
+      customerId: dependencies.uuid(),
       firstName,
       lastName,
       creditCardNumber,

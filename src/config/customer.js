@@ -16,11 +16,10 @@ import { nanoid } from "nanoid";
 export const Customer = {
   modelName: "customer",
   endpoint: "customers",
-  dependencies: { uuid },
+  dependencies: { uuid: () => nanoid(8) },
   factory: makeCustomerFactory,
   validate: validateModel,
   onDelete: okToDelete,
-  dependencies: { uuid: () => nanoid(8) },
   // datasource: {
   //   factory: DataSourceAdapterMongoDb,
   //   url: "mongodb://localhost:27017",
