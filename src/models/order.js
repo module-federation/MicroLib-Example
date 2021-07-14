@@ -369,7 +369,7 @@ async function getCustomerOrder(order) {
       creditCardNumber,
     };
 
-    const customer = order.customer(userData);
+    const customer = await order.customer(userData);
 
     console.assert(customer.getId(), "customer not created");
     console.debug("customer id", customer.getId());
