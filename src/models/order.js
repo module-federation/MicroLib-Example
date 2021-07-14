@@ -357,15 +357,17 @@ async function getCustomerOrder(order) {
   // new customer. The framework has a built-in handler
   // that calls the model's `addModel` function.
   if (order.saveShippingDetails) {
-    const customer = await order.customer({
+    const userData = ({ firstName, lastName, email, creditCardNumber } = {
       ...order,
       ...order.decrypt(),
     });
 
-    return order;
-    // if (customer) {
-    //   return order.update({ customerId: customer.getId() });
-    // }
+    const customer = await order.customer(userData);
+
+    console.assert(
+      (await order.update({ comment: "test" })).customerId === customer.getId(),
+      "customer not created correctly"
+    );
   }
 
   return order;
