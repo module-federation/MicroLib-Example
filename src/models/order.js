@@ -362,13 +362,16 @@ async function getCustomerOrder(order) {
       ...order.decrypt(),
     });
 
-    const customer = await order.customer(userData);
-
     console.assert(customer.getId(), "customer not created");
+    console.debug("customer id", customer.getId());
+    const custOrders = await customer.orders();
+    const custOrder = custOrders.reduce(o => o.getId() === order.getId());
     console.assert(
-      (await customer.orders())[0].customerId === customer.getId(),
-      "customer has at least one order and fk=pks"
+      custOrder.customerId === customer.getId(),
+      "customer doesnt have at least one order and fk=pks"
     );
+
+    return custOrder;
   }
 
   return order;
